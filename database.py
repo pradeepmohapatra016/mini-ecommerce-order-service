@@ -1,10 +1,11 @@
-
+import os
 import sqlite3
 
-DATABASE_NAME = "orders.db"
+DATABASE_NAME = os.getenv("DATABASE_PATH", "/app/data/orders.db")
 
 
 def get_db_connection():
+    os.makedirs(os.path.dirname(DATABASE_NAME), exist_ok=True)
     connection = sqlite3.connect(DATABASE_NAME)
     connection.row_factory = sqlite3.Row
     return connection
